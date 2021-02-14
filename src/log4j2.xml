@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="error">
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[%level] &lt;%d{HH:mm:ss.sss}&gt; %class{36}.%M(%L) >> %msg%xEx%n" charset="UTF-8"/>
+        </Console>
+ 
+        <File name="log" fileName="FDRenamer.log" append="false">
+            <PatternLayout pattern="[%level] &lt;%d{HH:mm:ss.sss}&gt; %class{36}.%M(%L) >> %msg%xEx%n" charset="UTF-8"/>
+        </File>
+    </appenders>
+ 
+    <loggers>
+        <root level="trace">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="log"/>
+        </root>
+    </loggers>
+</configuration>

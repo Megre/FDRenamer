@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="libs/log4j-api-2.14.0.jar"/>
+	<classpathentry kind="lib" path="libs/log4j-core-2.14.0.jar"/>
+	<classpathentry kind="lib" path="libs/metadata-extractor-2.14.0.jar" sourcepath="libs/metadata-extractor-2.15.0.zip"/>
+	<classpathentry kind="lib" path="libs/xmpcore-6.1.8.jar"/>
+	<classpathentry kind="var" path="ECLIPSE_HOME"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
