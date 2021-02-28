@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
+
 import org.junit.Test;
 
 import group.spart.fdr.test.TestUtil;
@@ -18,8 +19,8 @@ public class FDRenamerTest {
 
 	final static String testDir = TestUtil.TEST_DIR;
 
-//	@Test
-	public void testFDRenamerArgs() {
+	@Test
+	public void testFDRenamerArgs() { 
 		new FDRenamer(null);
 		new FDRenamer(new String[]{null});
 		new FDRenamer(new String[]{null, null});
@@ -93,7 +94,7 @@ public class FDRenamerTest {
 					"-input", testDir + "/source", 
 					"-filter", "fileName=.+(jpg|jpeg|mp4|gif)",
 					"-process", "action=move; outputDir=" + (testDir + "/source") 
-								+ "; replaceExisting=true; onInvalidParam=transfer; filePathName=%fileName%;",
+								+ "; replaceExisting=true; onInvalidParam=transfer; filePathName=$fileName;",
 					};
 			joinThread(new FDRenamer(args));
 			

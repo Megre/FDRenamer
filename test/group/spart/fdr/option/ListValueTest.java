@@ -14,6 +14,7 @@ public class ListValueTest {
 
 	ListValue listValue1 = new ListValue("abc;opq");
 	ListValue listValue2 = new ListValue("=abc;def=test_value");
+	ListValue listValue3 = new ListValue("value%3b;test=a");
 	
 	@Test(expected = NullPointerException.class)
 	public void testListValue() {
@@ -24,8 +25,9 @@ public class ListValueTest {
 	public void testGetValue() {
 		// getValue(int)
 		assertNull(listValue1.getValue(-1));
-		assertEquals(OptionFactory.createOptionValue("abc"), listValue1.getValue(0));
+		assertEquals("abc", listValue1.getValue(0).getRawText());
 		assertNull(listValue1.getValue(2));
+		assertEquals("value;", listValue3.getValue(0).getRawText());
 		
 		// getValue(String)
 		assertNull(listValue1.getValue(null));

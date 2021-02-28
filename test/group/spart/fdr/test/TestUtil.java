@@ -13,7 +13,7 @@ import group.spart.fdr.util.FileNameUtil;
  * 
  * @author megre
  * @email renhao.x@seu.edu.cn
- * @version created on: 2021年2月6日 下午10:39:33 
+ * @version created on: 2021-02-06 10:39:33 PM
  */
 public class TestUtil {
 	

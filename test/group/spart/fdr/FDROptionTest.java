@@ -40,7 +40,7 @@ public class FDROptionTest {
 			assertEquals("testData/source", fdrOption.getTextOptionValue("input"));
 			
 			OptionValue optionValue = fdrOption.getOptionValue("process");
-			assertEquals("%fileName%", optionValue.getValue("filePathName").getRawText());
+			assertEquals("${fileName}", optionValue.getValue("filePathName").getRawText());
 			assertEquals(".", optionValue.getValue("outputDir").getRawText());
 			assertEquals("move", optionValue.getValue("action").getRawText());
 			assertEquals("false", optionValue.getValue("replaceExisting").getRawText());
