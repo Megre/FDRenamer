@@ -33,8 +33,8 @@ public class OptionValueTest {
 		assertNotEquals(new ListValue("abc; ;"), 
 				OptionFactory.createOptionValue("abc").asListValue());
 		
-		assertEquals(new ListValue(" abc" + ListValue.SEPERATOR + " bcd"), 
-				OptionFactory.createOptionValue("abc " + ListValue.SEPERATOR + "bcd").asListValue());
+		assertEquals(new ListValue(" abc" + ListValue.SEPARATOR + " bcd"), 
+				OptionFactory.createOptionValue("abc " + ListValue.SEPARATOR + "bcd").asListValue());
 	}
 	
 	@Test
