@@ -20,34 +20,25 @@ public class AttributeFormatter extends AttributeResolver {
 	
 	public AttributeFormatter(String formatter) {
 		super(formatter);
-		fFormatter = getResolverText();
+		fFormatter = decode(getResolverText());
 	}
 	
 	/**
 	 * @see group.spart.fdr.attr.AttributeResolver#resolve()
 	 */
 	@Override
-	public String resolve(Object valueObject) {
+	public Object resolve(Object valueObject) {
 		return format(valueObject);
 	}
 	
-	private String format(Object valueObject) {
+	private Object format(Object valueObject) {
 		if(valueObject == null) return null;
 		
 		if(fFormatter.isEmpty()) {
-			return valueObject.toString();
+			return valueObject;
 		}
 		
-		if(valueObject instanceof String) {
-			try {
-				return String.format(valueObject.toString(), fFormatter);
-			}
-			catch (IllegalFormatException e) {
-				logger.error(e);
-				return null;
-			}
-		}
-		else if(valueObject instanceof Date) {
+		if(valueObject instanceof Date) {
 			Date date = (Date) valueObject;
 			try {
 				SimpleDateFormat dateFormat = new SimpleDateFormat(fFormatter);
@@ -58,6 +49,21 @@ public class AttributeFormatter extends AttributeResolver {
 			}
 		}
 		
-		return valueObject.toString();
+		if(valueObject instanceof FileSize) {
+			return ((FileSize) valueObject).getSize(fFormatter);
+		}
+		
+		if(valueObject instanceof String || valueObject instanceof Float) {
+			try {
+				return String.format(fFormatter, valueObject);
+			}
+			catch (IllegalFormatException e) {
+				logger.error(e);
+				return null;
+			}
+		}
+		
+		return null;
 	}
+
 }

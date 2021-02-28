@@ -27,6 +27,8 @@ public class TimeUtil {
 	}
 	
 	public static Date str2Date(String strDate) {
+		if(strDate == null) return null;
+		
 		SimpleDateFormat dateFormat;
 		
 		if(strDate.matches("\\w{3} \\w{3} \\d{2} \\d{2}:\\d{2}:\\d{2} CST \\d{4}")) {

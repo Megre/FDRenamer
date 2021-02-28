@@ -19,7 +19,8 @@ import org.apache.logging.log4j.Logger;
 public class RegexMatcher implements FilterMatcher {
 	private Logger logger = LogManager.getLogger(RegexMatcher.class);
 
-	public static final String FLAG_SPLITTER = ",";
+	public static final String REGEX_QUOTE = "/";
+	public static final String FLAG_SEPARATOR = ",";
 	public static Map<String, Integer> fFlags = new HashMap<>();
 	
 	private Pattern fPattern;
@@ -76,6 +77,6 @@ public class RegexMatcher implements FilterMatcher {
 		fFlags.put("UNIX_LINES", Pattern.UNIX_LINES);
 		fFlags.put("LITERAL", Pattern.LITERAL);
 		fFlags.put("UNICODE_CHARACTER_CLASS", Pattern.UNICODE_CHARACTER_CLASS);
-		fFlags.put("andCOMMENTS", Pattern.COMMENTS);
+		fFlags.put("COMMENTS", Pattern.COMMENTS);
 	}
 }

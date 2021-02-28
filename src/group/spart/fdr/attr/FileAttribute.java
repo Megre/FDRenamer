@@ -51,7 +51,7 @@ public class FileAttribute {
 	
 	/**
 	 * 
-	 * @param attributeEntry e.g. filePathName=${mediaCreationDate, yyyy-MM | creationDate, yyyy.MM}/%fileName%;" 
+	 * @param attributeEntry e.g. filePathName=${mediaCreationDate, yyyy-MM | creationDate, yyyy.MM}/$fileName;" 
 	 * @param filter
 	 * @return calculated value of the attribute
 	 */

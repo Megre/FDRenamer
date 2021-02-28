@@ -23,5 +23,13 @@ public class SingleValue extends OptionValue {
 		
 		return fText.equals(((OptionValue) object).getRawText());
 	}
+
+	/**
+	 * @see group.spart.fdr.attr.SpecialCharDecoder#decode(java.lang.String)
+	 */
+	@Override
+	public String decode(String encodedString) {
+		return encodedString;
+	}
 	
 }

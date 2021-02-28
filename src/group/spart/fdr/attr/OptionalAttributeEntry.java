@@ -9,7 +9,7 @@ import group.spart.fdr.util.DecodeUtil;
  * ${<name> [, <formatter>] [: <modifier>] ... [| [, <formatter>] [: <modifier>] ...] ...}
  * @author megre
  * @email renhao.x@seu.edu.cn
- * @version created on: 2021年2月5日 下午8:43:03 
+ * @version created on: 2021-02-05 8:43:03 PM
  */
 public class OptionalAttributeEntry implements SpecialCharDecoder {
 	public static final String OPTION_SPLITTER = "|";
@@ -43,7 +43,7 @@ public class OptionalAttributeEntry implements SpecialCharDecoder {
 	 */
 	@Override
 	public String decode(String encodedString) {
-		return DecodeUtil.decode(encodedString, "|");
+		return DecodeUtil.decode(encodedString, OPTION_SPLITTER);
 	}
 	
 	private void parse() {

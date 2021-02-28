@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import group.spart.fdr.util.DecodeUtil;
+
 /** 
  * 
  * @author megre
@@ -12,17 +14,17 @@ import java.util.Objects;
  */
 public class ListValue extends OptionValue {
 	
-	public static final String SEPERATOR = ";";
+	public static final String SEPARATOR = ";";
 
 	private List<OptionValue> fValues;
 	
 	public ListValue(String text) {
 		super(text);
 		
-		String[] values = text.trim().split(ListValue.SEPERATOR);
+		String[] values = text.trim().split(ListValue.SEPARATOR);
 		fValues = new ArrayList<>();
 		for(String value: values) {
-			fValues.add(OptionFactory.createOptionValue(value));
+			fValues.add(OptionFactory.createNonListOptionValue(decode(value)));
 		}
 	}
 	
@@ -54,7 +56,7 @@ public class ListValue extends OptionValue {
 			if(containsKey(value.asPairValue().getKey())) continue;
 			
 			fValues.add(value);
-			fText = fText + SEPERATOR + value.getRawText();
+			fText = fText + SEPARATOR + value.getRawText();
 		}
 		
 		return this;
@@ -77,7 +79,7 @@ public class ListValue extends OptionValue {
 	}
 
 	public static boolean isListValue(String text) {
-		return text.contains(SEPERATOR);
+		return text.contains(SEPARATOR);
 	}
 	
 	@Override
@@ -95,6 +97,14 @@ public class ListValue extends OptionValue {
 		if(!(object instanceof ListValue)) return false;
 		
 		return Objects.equals(fValues, ((ListValue) object).fValues);
+	}
+
+	/**
+	 * @see group.spart.fdr.attr.SpecialCharDecoder#decode(java.lang.String)
+	 */
+	@Override
+	public String decode(String encodedString) {
+		return DecodeUtil.decode(encodedString, SEPARATOR);
 	}
 	
 }

@@ -29,6 +29,10 @@ public class OptionFactory {
 			return new ListValue(text);
 		}
 		
+		return createNonListOptionValue(text);
+	}
+	
+	public static OptionValue createNonListOptionValue(String text) {
 		if(isPairValue(text)) {
 			return new PairValue(text);
 		}

@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Date;
+
+import javax.swing.filechooser.FileSystemView;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -43,6 +47,7 @@ public class AttributeValue {
 	
 	public String value(Object valueObject) {
 		fValueObject = valueObject;
+		
 		Object result = valueObject;
 		for(AttributeResolver resolver: fSimpleEntry.listResolvers()) {
 			result = resolver.setFileAttribute(fFileAttribute).setFilter(fFilter).resolve(result);
@@ -63,9 +68,10 @@ public class AttributeValue {
 	 */
 	public String rename(FileAttribute fileAttribute, FDRFilter filter) {
 		FileRenamer renamer = getFileRenamer(filter);
-		if(renamer == null) return null;
 		
-		return renamer.rename(fileAttribute, filter);
+		return renamer == null
+				? null
+				: renamer.rename(fileAttribute, filter);
 	}
 	
 	/**
@@ -80,40 +86,82 @@ public class AttributeValue {
 		File file = fFileAttribute.getFile();
 		String attributeName = fSimpleEntry.getName(); 
 		
-		if(attributeName.equals("fileName")) {
+		if(attributeName.equalsIgnoreCase("fileName")) {
 			return file.getName();
 		}
 		
-		if(attributeName.equals("filePath")) {
-			return file.getAbsolutePath().replaceAll("\\", "/");
-		}
-		
-		if(attributeName.equals("fileNameExt")) {
+		if(attributeName.equalsIgnoreCase("fileNameExt")) {
 			return FileNameUtil.getFileNameExt(file);
 		}
 		
-		if(attributeName.equals("fileNameNoExt")) {
+		if(attributeName.equalsIgnoreCase("fileNameNoExt")) {
 			return FileNameUtil.getFileNameNoExt(file);
+		}		
+		
+		if(attributeName.equalsIgnoreCase("filePath")) {
+			return file.getAbsolutePath();
+		}
+		
+		if(attributeName.equalsIgnoreCase("fileSize")) {
+			try {
+				return new FileSize(file.length());
+			}
+			catch (SecurityException e) {
+				logger.error(e);
+				return null;
+			}
+		}
+		
+		if(attributeName.equalsIgnoreCase("rootDir")) {
+			int index = file.getAbsolutePath().indexOf(File.separator);
+			return index < 0 
+					? file.getAbsolutePath() 
+					: file.getAbsolutePath().substring(0, index);
+		}
+		
+		if(attributeName.equalsIgnoreCase("parentDirPath")) {
+			return file.getParentFile().getAbsolutePath();
+		}
+		
+		if(attributeName.equalsIgnoreCase("parentDirName")) {
+			return file.getParentFile().getName();
 		}
 		
 		BasicFileAttributes attributes = getBasicFileAttributes(file);
 		if(attributes != null) {
-			if(attributeName.equals("creationDate")) {
+			if(attributeName.equalsIgnoreCase("creationDate")) {
 				return TimeUtil.fileTime2Date(attributes.creationTime());
 			}
 			
-			if(attributeName.equals("lastAccessDate")) {
+			if(attributeName.equalsIgnoreCase("lastAccessDate")) {
 				return TimeUtil.fileTime2Date(attributes.lastAccessTime());
 			}
 			
-			if(attributeName.equals("lastModifiedDate")) {
+			if(attributeName.equalsIgnoreCase("lastModifiedDate")) {
 				return TimeUtil.fileTime2Date(attributes.lastModifiedTime());
 			}
+			
 		}
 		
-		if(attributeName.startsWith("mediaCreationDate")) {
-			String date = new MetadataReader().read(file, attributeName);
-			if(date != null) return TimeUtil.str2Date(date);
+		if(attributeName.equalsIgnoreCase("currentDate")) {
+			return new Date();
+		}
+		
+		if(attributeName.toLowerCase().startsWith("mediaCreationDate".toLowerCase())) {
+			return TimeUtil.str2Date(new MetadataReader().read(file, attributeName));
+		}
+		
+		if(attributeName.equalsIgnoreCase("desktop")) {
+			return FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath();
+		}
+
+		try {
+			if (System.getenv(attributeName) != null) {
+				return System.getenv(attributeName);
+			}
+		} catch (SecurityException e) {
+			logger.error(e);
+			return null;
 		}
 		
 		logger.error("[filter " + fFilter.getPosition() + "] invalid attribute name: " + attributeName);

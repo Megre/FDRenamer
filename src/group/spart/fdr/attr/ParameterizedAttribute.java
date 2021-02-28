@@ -15,10 +15,10 @@ import group.spart.fdr.util.DecodeUtil;
  */
 public class ParameterizedAttribute implements SpecialCharDecoder {
 	
-	private static final Pattern fEntryPattern = 
+	private static final Pattern ENTRY_PATTERN = 
 			Pattern.compile("\\$([a-zA-Z_][a-zA-Z_0-9]*)|\\$\\{([^\\}]+)\\}");
-	
 	private final Matcher fEntryMatcher;
+	
 	private String fAttributeText;
 	private StringBuffer fAttributeBuffer;
 	private List<OptionalAttributeEntry> fEntryList;
@@ -33,7 +33,7 @@ public class ParameterizedAttribute implements SpecialCharDecoder {
 		fAttributeText = quotedAttribute.trim();
 		fAttributeBuffer = new StringBuffer(fAttributeText);
 		fEntryList = new ArrayList<>();
-		fEntryMatcher = fEntryPattern.matcher(fAttributeBuffer);
+		fEntryMatcher = ENTRY_PATTERN.matcher(fAttributeBuffer);
 	}
 	
 	public List<OptionalAttributeEntry> listEntries() {

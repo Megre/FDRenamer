@@ -46,6 +46,6 @@ public class InflatedFilterOption {
 	public boolean matches() {
 		return fKey != null 
 			&& fValue != null
-			&&fMatcher.matches(fKey);
+			&& fMatcher.matches(fKey);
 	}
 }

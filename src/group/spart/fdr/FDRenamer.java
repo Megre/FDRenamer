@@ -28,12 +28,12 @@ public class FDRenamer {
 	
 	private static FDROption fOption;
 	private static final String fUsage =  "Usage: \n"
-			+ "-input <path1> \n"
-			+ "       [;<path2>]... \n"
+			+ "-input <path> \n"
+			+ "       [;<path>]... \n"
 			+ "-mode [preview | exec] \n"
 			+ "-processSubdir [true | false] \n"
-			+ "-filter [fileName=<regex1>] \n"
-			+ "        [;filePath=<regex2>]...] \n"
+			+ "-filter <parameter>=<matcher> \n"
+			+ "        [;<parameter>=<matcher>]... \n"
 			+ "-process [action=[move | copy]] \n"
 			+ "         [;remainDirStructure=[true | false]] \n"
 			+ "         [;onInvalidParam=[ignore | transfer]] \n"

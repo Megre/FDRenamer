@@ -1,12 +1,14 @@
 package group.spart.fdr.option;
 
+import group.spart.fdr.attr.SpecialCharDecoder;
+
 /** 
  * 
  * @author megre
  * @email renhao.x@seu.edu.cn
  * @version created on: Jan 26, 2021 3:40:38 PM 
  */
- public abstract class OptionValue {
+ public abstract class OptionValue implements SpecialCharDecoder {
 	protected String fText;
 	
 	public OptionValue(String text) { 

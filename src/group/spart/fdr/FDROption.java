@@ -67,7 +67,7 @@ public class FDROption {
 		fDefaultOption.put("process", "replaceExisting=false"); // true, false
 		fDefaultOption.put("process", "remainDirStructure=true"); // true, false
 		fDefaultOption.put("process", "outputDir=./");
-		fDefaultOption.put("process", "filePathName=%fileName%");
+		fDefaultOption.put("process", "filePathName=${fileName}");
 		fDefaultOption.put("process", "onInvalidParam=ignore"); // ignore, transfer
 	}
 	
