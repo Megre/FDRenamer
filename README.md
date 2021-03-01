@@ -22,7 +22,7 @@ FDRenamer is a file sorter that filters and sorts files.
     
     java -jar FDRenamer.jar -input D:\files -config yearMonthSorter.cfg
     
-The configuration file "yearMonthSorter.cfg" is as follows:
+The configuration file [yearMonthSorter.cfg](http://https://github.com/Megre/FDRenamer/blob/master/testData/yearMonthSorter.cfg) is as follows:
 
     -mode exec 
     -processSubdir false  
@@ -101,7 +101,7 @@ The character encoding uses "UTF-8", so does the configuration file.
 
 ### Parameter
 
-A parameter formats and modifies an attribute of an input file. A parameter is specified as:
+A parameter formats and modifies an [attribute](#attribute) of an input file. A parameter is specified as:
 
     $<name>
     or
@@ -117,7 +117,7 @@ A formatter or modifier can follow each other to successively revise the value o
 
 A parameter may contain multiple entries separated by `|`. In this case, the value of the parameter is the first available entry. For example, `${mediaCreationDate, yyyy-MM | creationDate, yyyy-MM}` returns the media creation date if possible, or it returns the creation date of the input file.
 
-### Attributes
+### Attribute
 
 Here is a list of currently supported attributes:
 
@@ -152,7 +152,7 @@ There are four types of formatter:
 
 Three types of modifiers are:
 
-- capture group (`cg(<reference_format>)`). A capture group refers to the groups captured by a [regular expression matcher](#regular-expression-matcher) specified in the filter. For example, in the option `-filter $fileName=/.*(\d{4}).?(\d{2}).?\d{2}.+/ -process filePathName=${: cg($0.1-$0.2)}/$fileName...`, `cg($0.1-$0.2)` is a capture group modifier. The `<reference_format>` is a string that contains references to captured groups. A reference of a capture group is in the format of `$<filter_index>.<group_index>` in which `<filter_index>` is the index of the `<parameter>`-`<matcher>` pair in the filter option; `<group_index>` is the index of the captured group. To use a capture group modifier, the `<matcher>` should be a [regular expression matcher](#regular-expression-matcher).
+- capture group (`cg(<reference_format>)`). A capture group refers to the groups captured by a [regular expression matcher](#regular-expression-matcher) specified in the filter. For example, in the option `-filter $fileName=/.*(\d{4}).?(\d{2}).?\d{2}.+/ -process filePathName=${: cg($0.1-$0.2)}/$fileName...`, `cg($0.1-$0.2)` is a capture group modifier. The `<reference_format>` is a string that contains references to captured groups. A reference of a capture group is in the format of `$<filter_index>.<group_index>` in which `<filter_index>` is the index of the `<parameter>`-`<matcher>` pair in the filter option; `<group_index>` is the index of the captured group. To use a capture group modifier, the `<matcher>` should be a [regular expression matcher](#regular-expression-matcher). The name of a parameter can be empty if the parameter starts with a capture group modifier.
 
 - case (`case(<instruction>)`): modifies the case of input string. The `<instruction>` is one of `uc` (uppercase all letters), `lc` (lowercase all letters), `ucfl` (uppercase the first letter), `lcfl` (lowercase the first letter), `ucw` (uppercase the first letter of each word), `lcw` (lowercase the first letter of each word), or `ac` (alternate the case of each letter). Multiple case modifiers can be combined to achieve specific results. For example, the file name "A little cat.jpg" can be modified to "a lITTLE cAT.JPG" using `${fileName, case(lc), case(ucw), case(ac)}`.
 
@@ -160,7 +160,7 @@ Three types of modifiers are:
 
 ### Renamer
 
-A renamer is a special parameter, i.e. `$renamer` or `${renamer}`. To use a renamer, the `renamer` option should be specified within the `-process` option to provide a user-defined Java file (see [example](#example)). Here is an example of a user-defined renamer "TimeStampRenamer.java":
+A renamer is a special parameter, i.e. `$renamer` or `${renamer}`. To use a renamer, the `renamer` option should be specified within the `-process` option to provide a user-defined Java file (see [example](#example)). Here is an example of a user-defined renamer [TimeStampRenamer.java](https://github.com/Megre/FDRenamer/blob/master/src/TimeStampRenamer.java):
 
     import java.text.SimpleDateFormat;
     import java.util.Date;
@@ -204,7 +204,7 @@ A renamer is a special parameter, i.e. `$renamer` or `${renamer}`. To use a rena
     
     }
 
-A renamer should implement group.spart.fdr.attr.FileRenamer and rewrite the rename method. The FileAttribute represents the file attributes. Its "inflate" method calculates the value of a given parameter.
+A renamer should implement [group.spart.fdr.attr.FileRenamer](https://github.com/Megre/FDRenamer/blob/master/src/group/spart/fdr/attr/FileRenamer.java) and rewrite the rename method. The [FileAttribute](https://github.com/Megre/FDRenamer/blob/master/src/group/spart/fdr/attr/FileAttribute.java) represents the file attributes. Its "inflate" method calculates the value of a given parameter.
 
 ### Matcher
 
