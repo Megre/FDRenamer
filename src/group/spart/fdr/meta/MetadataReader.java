@@ -42,7 +42,7 @@ public class MetadataReader {
 			Iterator<Tag> tags = curDir.getTags().iterator();
 			while(tags.hasNext()) {
 				Tag tag = tags.next();
-//				logger.trace(curDir.getName() + ": " + tag.getTagName() + ": " + tag.getDescription());
+				logger.trace(curDir.getName() + ": " + tag.getTagName() + ": " + tag.getDescription());
 				if((directory == null || containsIgnoreCase(curDir.getName(), directory))
 						&& containsIgnoreCase(tag.getTagName(), key)) {
 					return tag.getDescription();
@@ -54,43 +54,40 @@ public class MetadataReader {
 	}
 	
 	private boolean containsIgnoreCase(String string1, String string2) {
-		if(string1 == null) return false;
-		if(string2 == null) return false;
-		
+		if(string1 == null || string2 == null) return false;
 		return string1.toUpperCase().contains(string2.toUpperCase());
 	}
 	
 	private Metadata getMetadata(File file) {
-		String ext = FileNameUtil.getFileNameExt(file), curveExt;
-		if(ext == null || ext.isEmpty()) return null;
-		
-		ext = ext.toLowerCase();
-		curveExt = ext.toUpperCase();
-		if(curveExt.length() > 1) {
-			curveExt = curveExt.substring(0, 1) + curveExt.substring(1).toLowerCase();
-		}
-		
-		if("jpg".equals(ext)) {
-			ext = "jpeg";
-			curveExt = "Jpeg";
-		}
-		
 		try {
-			Class<?> metadataReader = Class.forName("com.drew.imaging." + ext + "." + curveExt + "MetadataReader");
+			Class<?> metadataReader = Class.forName(getMetadataClassName(file));
 			Method readMetadata = metadataReader.getMethod("readMetadata", File.class);
 			return (Metadata) readMetadata.invoke(null, file);
 		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException
 				| IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			logger.error(e);
+			logger.warn("unable to read the meta data of " + file.getAbsolutePath());
 		} catch (Exception e) {
 			logger.error(e);
 		}
 		
 		return null;
 	}
-    
-    public static void main(String[] args) {
-        new MetadataReader().read(new File("C:/Users/TF/Desktop/新建文件夹/1585289855360.mp4"), "mediaCreationDate");
-    }
+	
+	private String getMetadataClassName(File file) {
+		String ext = getExt(file);
+		return ext == null
+				? null
+			    : ("com.drew.imaging." + ext + "." + curveWord(ext) + "MetadataReader");
+	}
+	
+	private String getExt(File file) {
+		String ext = FileNameUtil.getFileNameExt(file);
+		if("jpg".equalsIgnoreCase(ext)) ext = "jpeg";
+		return ext == null ? null : ext.toLowerCase();
+	}
+	
+	private String curveWord(String word) {
+		return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
+	}
 
 }

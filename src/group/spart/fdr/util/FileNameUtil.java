@@ -30,4 +30,12 @@ public class FileNameUtil {
 				&& file1Path.replace(file2Path, "").matches("[/\\\\].*");
 	}
 	
+	public static String getParentPath(File file) {
+		String path = file.getAbsolutePath();
+		int index = path.lastIndexOf(File.separator);
+		return index == -1
+				? path
+				: path.substring(0, index);
+	}
+	
 }

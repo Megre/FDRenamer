@@ -13,6 +13,8 @@ import javax.tools.JavaCompiler.CompilationTask;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import group.spart.fdr.util.FileNameUtil;
+
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
@@ -72,7 +74,9 @@ public class JavaFileLoader {
 	}
 	
 	private static String getClassPath(File javaFile) {
-		return javaFile.getParentFile().getAbsolutePath() + "/" + getClassName(javaFile) + ".class";
+		return FileNameUtil.getParentPath(javaFile)
+				+ "/" + getClassName(javaFile) 
+				+ ".class";
 	}
 	
 	private static String getClassName(File javaFile) {
