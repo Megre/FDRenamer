@@ -97,6 +97,19 @@ All the options can be specified either in command lines or in a configuration f
 
 The character encoding uses "UTF-8", so does the configuration file.
 
+### Default Option Values
+
+If not specified, the options take the following values: 
+
+    -mode preview
+    -processSubdir false
+    -process action=copy
+    -process replaceExisting=false
+    -process remainDirStructure=true
+    -process outputDir=./
+    -process filePathName=${fileName}
+    -process onInvalidParam=ignore
+
 # Parameter and Matcher
 
 ### Parameter

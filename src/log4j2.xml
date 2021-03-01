@@ -7,12 +7,12 @@
         </Console>
  
         <File name="log" fileName="FDRenamer.log" append="false">
-            <PatternLayout pattern="[%level] &lt;%d{HH:mm:ss.sss}&gt; %class{36}.%M(%L) >> %msg%xEx%n" charset="UTF-8"/>
+            <PatternLayout pattern="[%level] &lt;%d{yyyy-MM-dd HH:mm:ss.sss}&gt; %class{36}.%M(%L) >> %msg%xEx%n" charset="UTF-8"/>
         </File>
     </appenders>
  
     <loggers>
-        <root level="trace">
+        <root level="debug">
             <appender-ref ref="Console"/>
             <appender-ref ref="log"/>
         </root>
